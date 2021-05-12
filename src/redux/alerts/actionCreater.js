@@ -1,6 +1,6 @@
 import actions from "./actions";
 import uuid from "uuid/dist/v4";
-const { SET_ALERT, REMOVE_ALERT, fetchAlert, removingAlert } = actions;
+const { REMOVE_ALERT, fetchAlert } = actions;
 
 const setAlert = (msg, alertType) => {
   const id = uuid();
@@ -15,17 +15,5 @@ const setAlert = (msg, alertType) => {
     }
   };
 };
-const removeAlert = (data) => {
-  return async (dispatch) => {
-    try {
-      //data = alert.id
-      dispatch(removingAlert(data));
-    } catch (err) {
-      const error = new Error("Problem removing the Alert");
-      error.inner = err;
-      throw error;
-    }
-  };
-};
 
-export { setAlert, removeAlert };
+export { setAlert };

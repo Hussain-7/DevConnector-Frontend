@@ -1,8 +1,8 @@
-import axios from "axios";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { setAlert } from "../../redux/alerts/actionCreater";
-import { useSelector, useDispatch } from "react-redux";
+import { registerUser } from "../../redux/auth/actionCreater";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,9 @@ const Register = () => {
     if (password !== password2) {
       dispatch(setAlert("Passwords do not match", "danger"));
     } else {
-      console.log("match");
+      let user = Object.assign({}, formData);
+      delete user.password2;
+      dispatch(registerUser(user));
     }
   };
   return (

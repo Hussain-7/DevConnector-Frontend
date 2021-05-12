@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router";
+// import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 const Navbar = () => {
   return (

@@ -9,14 +9,13 @@ const initialState = [];
  */
 const alertReducer = (state = initialState, action) => {
   const { payload, type } = action;
-  console.log("============FETCHING ALERTS============");
-  console.log(initialState);
-  console.log(action.type);
   switch (type) {
     case SET_ALERT: {
+      console.log("============SET ALERT============");
       return [...state, payload];
     }
     case REMOVE_ALERT: {
+      console.log("============REMOVE ALERT============");
       return state.filter((alert) => alert.id !== payload);
     }
     default:
