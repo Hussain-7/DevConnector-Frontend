@@ -9,11 +9,12 @@ import Landing from "./components/layout/Landing";
 import Navbar from "./components/layout/Navbar";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Alert from "./components/layout/Alert";
 import "./App.css";
 //Redux
 //This is what combines react and redux
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./redux/store";
 const App = () => {
   return (
     <div>
@@ -23,6 +24,7 @@ const App = () => {
             <Navbar />
             <Route exact path="/" component={Landing} />
             <section className="container">
+              <Alert/>
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/Register" component={Register} />

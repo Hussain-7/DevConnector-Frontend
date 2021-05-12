@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-// import axiosInstance from "../../@axios";
+import { setAlert } from "../../redux/alerts/actionCreater";
+import { useSelector, useDispatch } from "react-redux";
+
 const Register = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,22 +20,9 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("password donot match");
+      dispatch(setAlert("Passwords do not match", "danger"));
     } else {
-      //   const newUser = {
-      //     name,
-      //     email,
-      //     password,
-      //     password2,
-      //   };
-      //   try {
-      //     const body = JSON.stringify(newUser);
-      //     const res = await axiosInstance.post("/api/users", body);
-      //     console.log(res.data);
-      //   } catch (error) {
-      //     console.log(error.response.message);
-      //   }
-      console.log(formData);
+      console.log("match");
     }
   };
   return (
