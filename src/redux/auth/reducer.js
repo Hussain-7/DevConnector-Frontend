@@ -1,6 +1,6 @@
 import actions from "./actions";
 
-const { REGISTER_FAIL, REGISTER_SUCCESS } = actions;
+const { REGISTER_FAIL, REGISTER_SUCCESS, USER_LOADING, AUTH_ERROR } = actions;
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -15,6 +15,18 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   const { payload, type } = action;
   switch (type) {
+    case USER_LOADING: {
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: true,
+        loading: false,
+        user: payload,
+      };
+    }
+    case AUTH_ERROR: {
+      return {};
+    }
     case REGISTER_SUCCESS: {
       console.log("============REGISTER SUCCESS============");
       localStorage.setItem("token", payload.token);
@@ -33,9 +45,9 @@ const authReducer = (state = initialState, action) => {
         token: null,
         isAuthenticated: false,
         loading: false,
-        user: null,
       };
     }
+
     default:
       return state;
   }
