@@ -7,6 +7,7 @@ const {
   REGISTER_SUCCESS,
   USER_LOADED,
   AUTH_ERROR,
+  LOGOUT,
 } = actions;
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   loading: true,
   user: null,
 };
+
 /**
  * @todo impure state mutation/explaination
  */
@@ -39,6 +41,7 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
         loading: false,
       };
+    case LOGOUT:
     case LOGIN_FAIL:
     case REGISTER_FAIL:
     case AUTH_ERROR:
@@ -48,6 +51,7 @@ const authReducer = (state = initialState, action) => {
         token: null,
         isAuthenticated: false,
         loading: false,
+        user: null,
       };
     default:
       return state;

@@ -5,6 +5,7 @@ const actions = {
   REGISTER_FAIL: "REGISTER_FAIL",
   USER_LOADED: "USER_LOADED",
   AUTH_ERROR: "AUTH_ERROR",
+  LOGOUT: "LOGOUT",
   loginSuccess: (token) => {
     return {
       type: actions.LOGIN_SUCCESS,
@@ -16,6 +17,12 @@ const actions = {
       type: actions.LOGIN_FAIL,
     };
   },
+  logout: () => {
+    return {
+      type: actions.LOGOUT,
+    };
+  },
+
   registerSuccess: (token) => {
     return {
       type: actions.REGISTER_SUCCESS,

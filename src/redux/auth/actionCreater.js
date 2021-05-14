@@ -5,6 +5,7 @@ import { setAuthToken } from "../../@axios/index";
 const {
   loginSuccess,
   loginFail,
+  logout,
   registerSuccess,
   registerFail,
   userLoading,
@@ -63,4 +64,10 @@ const registerUser = ({ name, email, password }) => {
   };
 };
 
-export { registerUser, loadUser, loginUser };
+const logoutUser = () => {
+  return async (dispatch) => {
+    dispatch(logout());
+  };
+};
+
+export { registerUser, loadUser, loginUser, logoutUser };
