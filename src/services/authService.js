@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-constructor */
-import axiosInstance from "../@axios";
+import { axiosInstance } from "../@axios";
 
 class AuthService {
   async loginUser(data) {

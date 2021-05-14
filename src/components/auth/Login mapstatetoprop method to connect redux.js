@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { loginUser } from "../../redux/auth/actionCreater";
-import { useDispatch, useSelector } from "react-redux";
-
-const Login = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const auth = useSelector((state) => state.auth);
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+const Login = ({ loginUser, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,10 +15,10 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginUser(formData));
+    loginUser(formData);
   };
-  if (auth.isAuthenticated) {
-    history.push(`/dashboard`);
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
   }
   return (
     <section className="container">
@@ -57,5 +54,12 @@ const Login = () => {
     </section>
   );
 };
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { loginUser })(Login);

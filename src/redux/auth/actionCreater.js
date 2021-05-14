@@ -1,8 +1,47 @@
 import { setAlert } from "../alerts/actionCreater";
 import actions from "./actions";
 import authService from "../../services/authService";
-import setAuthToken from "../../utils/setAuthToken";
-const { registerSuccess, registerFail, userLoading, authError } = actions;
+import { setAuthToken } from "../../@axios/index";
+const {
+  loginSuccess,
+  loginFail,
+  registerSuccess,
+  registerFail,
+  userLoading,
+  authError,
+} = actions;
+
+const loadUser = () => {
+  return async (dispatch) => {
+    console.log(localStorage.token);
+    if (localStorage.token) setAuthToken(localStorage.token);
+    try {
+      const res = await authService.loadUser();
+      console.log(res.data);
+      dispatch(userLoading(res.data));
+    } catch (error) {
+      console.log("AUTH ERROR");
+      dispatch(authError());
+    }
+  };
+};
+const loginUser = ({ email, password }) => {
+  return async (dispatch) => {
+    try {
+      const user = { email, password };
+      const res = await authService.loginUser(user);
+      if (res.data) {
+        dispatch(loginSuccess(res.data.token));
+        dispatch(loadUser());
+      }
+    } catch (err) {
+      err.response.data.errors.forEach((error) => {
+        dispatch(setAlert(error.msg, "danger"));
+      });
+      dispatch(loginFail());
+    }
+  };
+};
 
 const registerUser = ({ name, email, password }) => {
   return async (dispatch) => {
@@ -10,7 +49,10 @@ const registerUser = ({ name, email, password }) => {
       const user = { name, email, password };
       console.log(user);
       const res = await authService.registerUser(user);
-      if (res.data) dispatch(registerSuccess(res.data.token));
+      if (res.data) {
+        dispatch(registerSuccess(res.data.token));
+        dispatch(loadUser());
+      }
     } catch (err) {
       console.log(err.response.data.errors);
       err.response.data.errors.forEach((error) => {
@@ -20,17 +62,5 @@ const registerUser = ({ name, email, password }) => {
     }
   };
 };
-const loadUser = () => {
-  return async (dispatch) => {
-    if (localStorage.token) setAuthToken(localStorage.token);
-    try {
-      const res = await authService.loadUser();
-      console.log(res.data);
-      dispatch(userLoading(res.data));
-    } catch (error) {
-      dispatch(authError());
-    }
-  };
-};
 
-export { registerUser, loadUser };
+export { registerUser, loadUser, loginUser };

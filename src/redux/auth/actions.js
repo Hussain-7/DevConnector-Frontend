@@ -1,9 +1,21 @@
 const actions = {
+  LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  LOGIN_FAIL: "LOGIN_FAIL",
   REGISTER_SUCCESS: "REGISTER_SUCCESS",
   REGISTER_FAIL: "REGISTER_FAIL",
-  USER_LOADING: "USER_LOADING",
+  USER_LOADED: "USER_LOADED",
   AUTH_ERROR: "AUTH_ERROR",
-
+  loginSuccess: (token) => {
+    return {
+      type: actions.LOGIN_SUCCESS,
+      payload: { token },
+    };
+  },
+  loginFail: () => {
+    return {
+      type: actions.LOGIN_FAIL,
+    };
+  },
   registerSuccess: (token) => {
     return {
       type: actions.REGISTER_SUCCESS,
@@ -17,7 +29,7 @@ const actions = {
   },
   userLoading: (data) => {
     return {
-      type: actions.USER_LOADING,
+      type: actions.USER_LOADED,
       payload: data,
     };
   },

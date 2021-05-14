@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { setAlert } from "../../redux/alerts/actionCreater";
 import { registerUser } from "../../redux/auth/actionCreater";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const auth = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,6 +29,9 @@ const Register = () => {
       dispatch(registerUser(user));
     }
   };
+  if (auth.isAuthenticated) {
+    history.push(`/dashboard`);
+  }
   return (
     <section className="container">
       <h1 className="large text-primary">Sign Up</h1>

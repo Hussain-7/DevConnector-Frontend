@@ -1,6 +1,13 @@
 import actions from "./actions";
 
-const { REGISTER_FAIL, REGISTER_SUCCESS, USER_LOADING, AUTH_ERROR } = actions;
+const {
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  REGISTER_FAIL,
+  REGISTER_SUCCESS,
+  USER_LOADED,
+  AUTH_ERROR,
+} = actions;
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -15,20 +22,16 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   const { payload, type } = action;
   switch (type) {
-    case USER_LOADING: {
+    case USER_LOADED: {
       return {
         ...state,
-        ...payload,
         isAuthenticated: true,
         loading: false,
         user: payload,
       };
     }
-    case AUTH_ERROR: {
-      return {};
-    }
-    case REGISTER_SUCCESS: {
-      console.log("============REGISTER SUCCESS============");
+    case LOGIN_SUCCESS:
+    case REGISTER_SUCCESS:
       localStorage.setItem("token", payload.token);
       return {
         ...state,
@@ -36,9 +39,9 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
         loading: false,
       };
-    }
-    case REGISTER_FAIL: {
-      console.log("============REGISTER FAIL============");
+    case LOGIN_FAIL:
+    case REGISTER_FAIL:
+    case AUTH_ERROR:
       localStorage.removeItem("token");
       return {
         ...state,
@@ -46,8 +49,6 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: false,
         loading: false,
       };
-    }
-
     default:
       return state;
   }
