@@ -14,7 +14,6 @@ const {
 
 const loadUser = () => {
   return async (dispatch) => {
-    console.log(localStorage.token);
     if (localStorage.token) setAuthToken(localStorage.token);
     try {
       const res = await authService.loadUser();

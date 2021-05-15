@@ -5,13 +5,16 @@ import Navbar from "./components/layout/Navbar";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
-import "./App.css";
+import { setAuthToken } from "./@axios/index";
+import Dashboard from "./components/dashboard/Dashboard";
 import { loadUser } from "./redux/auth/actionCreater";
+import "./App.css";
+
 //Redux
 //This is what combines react and redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { setAuthToken } from "./@axios/index";
+import PrivateRoute from "./routing/PrivateRoute";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -32,6 +35,7 @@ const App = () => {
               <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/Register" component={Register} />
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
             </section>
           </Fragment>
