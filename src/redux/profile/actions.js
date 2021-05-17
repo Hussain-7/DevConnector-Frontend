@@ -11,13 +11,13 @@ const actions = {
   },
   updateProfile: (data) => {
     return {
-      type: actions.GET_PROFILE,
+      type: actions.UPDATE_PROFILE,
       payload: data,
     };
   },
   profileError: (data) => {
     return {
-      type: actions.UPDATE_PROFILE,
+      type: actions.PROFILE_ERROR,
       payload: data,
     };
   },

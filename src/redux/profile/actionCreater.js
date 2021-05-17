@@ -1,5 +1,6 @@
 import actions from "./actions";
 import { setAlert } from "../alerts/actionCreater";
+import { accountDeleted } from "../auth/actionCreater";
 import profileService from "../../services/profileService";
 const { getProfile, profileError, clearProfile, updateProfile } = actions;
 
@@ -16,12 +17,6 @@ const getCurrentProfile = () => {
         })
       );
     }
-  };
-};
-
-const clearProfiles = () => {
-  return async (dispatch) => {
-    dispatch(clearProfile());
   };
 };
 
@@ -73,6 +68,28 @@ const addExperience = (FormData, history) => {
     }
   };
 };
+
+const removeExperience = (expId) => {
+  return async (dispatch) => {
+    try {
+      const res = await profileService.deleteExperience(expId);
+      dispatch(updateProfile(res.data));
+      dispatch(setAlert("Experience Removed"));
+    } catch (error) {
+      const err = error.response.data.errors;
+      if (err)
+        err.forEach((error) => {
+          dispatch(setAlert(error.msg, "danger"));
+        });
+      dispatch(
+        profileError({
+          msg: error.response.statusText,
+          status: error.response.status,
+        })
+      );
+    }
+  };
+};
 const addEducation = (FormData, history) => {
   return async (dispatch) => {
     try {
@@ -96,6 +113,55 @@ const addEducation = (FormData, history) => {
     }
   };
 };
+const removeEducation = (edId) => {
+  return async (dispatch) => {
+    try {
+      const res = await profileService.deleteEducation(edId);
+      dispatch(updateProfile(res.data));
+      dispatch(setAlert("Education Removed"));
+    } catch (error) {
+      dispatch(
+        profileError({
+          msg: error.response.statusText,
+          status: error.response.status,
+        })
+      );
+    }
+  };
+};
+const clearProfiles = () => {
+  return async (dispatch) => {
+    dispatch(clearProfile());
+  };
+};
+
+const deleteAccount = () => {
+  if (window.confirm("Are you sure? This cannot be undone!"))
+    return async (dispatch) => {
+      try {
+        const res = await profileService.deleteProfile();
+        dispatch(clearProfile());
+        dispatch(accountDeleted());
+        dispatch(setAlert("Your Account has been permanantly deleted"));
+      } catch (error) {
+        const err = error.response.data.errors;
+        if (err)
+          err.forEach((error) => {
+            dispatch(setAlert(error.msg, "danger"));
+          });
+        dispatch(
+          profileError({
+            msg: error.response.statusText,
+            status: error.response.status,
+          })
+        );
+      }
+    };
+  else
+    return async (dispatch) => {
+      return;
+    };
+};
 
 export {
   getCurrentProfile,
@@ -103,4 +169,7 @@ export {
   createProfile,
   addExperience,
   addEducation,
+  removeExperience,
+  removeEducation,
+  deleteAccount,
 };

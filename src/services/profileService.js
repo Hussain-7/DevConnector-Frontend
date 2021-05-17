@@ -14,9 +14,23 @@ class ProfileService {
     const url = `/api/profile/experience`;
     return await axiosInstance.put(url, data);
   }
+  async deleteExperience(id) {
+    const url = `/api/profile/experience/${id}`;
+    console.log(url);
+    return await axiosInstance.delete(url);
+  }
   async addEduction(data) {
     const url = `/api/profile/education`;
     return await axiosInstance.put(url, data);
+  }
+  async deleteEducation(id) {
+    const url = `/api/profile/education/${id}`;
+    console.log(url);
+    return await axiosInstance.delete(url);
+  }
+  async deleteProfile() {
+    const url = `/api/profile`;
+    return await axiosInstance.delete(url);
   }
 }
 

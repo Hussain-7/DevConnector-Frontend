@@ -8,6 +8,7 @@ const {
   USER_LOADED,
   AUTH_ERROR,
   LOGOUT,
+  ACCOUNT_DELETED,
 } = actions;
 
 const initialState = {
@@ -45,6 +46,7 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_FAIL:
     case REGISTER_FAIL:
     case AUTH_ERROR:
+    case ACCOUNT_DELETED:
       localStorage.removeItem("token");
       return {
         ...state,

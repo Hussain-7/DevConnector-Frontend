@@ -41,6 +41,7 @@ const AddProfile = () => {
   } = formData;
   useEffect(() => {
     dispatch(getCurrentProfile);
+
     setFormData({
       company: loading || !profile.company ? "" : profile.company,
       website: loading || !profile.website ? "" : profile.website,
@@ -50,19 +51,29 @@ const AddProfile = () => {
       githubusername:
         loading || !profile.githubusername ? "" : profile.githubusername,
       bio: loading || !profile.bio ? "" : profile.bio,
-      twitter: loading || !profile.social.twitter ? "" : profile.social.twitter,
+
+      twitter:
+        loading || (profile.social && !profile.social.twitter)
+          ? ""
+          : profile.social.twitter,
       facebook:
-        loading || !profile.social.facebook ? "" : profile.social.facebook,
+        loading || (profile.social && !profile.social.facebook)
+          ? ""
+          : profile.social.facebook,
       linkedin:
-        loading || !profile.social.linkedin ? "" : profile.social.linkedin,
-      youtube: loading || !profile.social.youtube ? "" : profile.social.youtube,
+        loading || (!profile.social && !profile.social.linkedin)
+          ? ""
+          : profile.social.linkedin,
+      youtube:
+        loading || (!profile.social && !profile.social.youtube)
+          ? ""
+          : profile.social.youtube,
       instagram:
-        loading || !profile.social.instagram ? "" : profile.social.instagram,
+        loading || (!profile.social && !profile.social.instagram)
+          ? ""
+          : profile.social.instagram,
     });
   }, [loading]);
-  const onToggle = async () => {
-    await toggleSocialComponent(!SocialComponent);
-  };
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 

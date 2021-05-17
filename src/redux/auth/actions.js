@@ -6,6 +6,8 @@ const actions = {
   USER_LOADED: "USER_LOADED",
   AUTH_ERROR: "AUTH_ERROR",
   LOGOUT: "LOGOUT",
+  ACCOUNT_DELETED: "ACCOUNT_DELETED",
+
   loginSuccess: (token) => {
     return {
       type: actions.LOGIN_SUCCESS,
@@ -43,6 +45,11 @@ const actions = {
   authError: () => {
     return {
       type: actions.AUTH_ERROR,
+    };
+  },
+  removeAccount: () => {
+    return {
+      type: actions.ACCOUNT_DELETED,
     };
   },
 };

@@ -11,6 +11,7 @@ const {
   registerFail,
   userLoading,
   authError,
+  removeAccount,
 } = actions;
 
 const loadUser = () => {
@@ -69,4 +70,10 @@ const logoutUser = () => {
   };
 };
 
-export { registerUser, loadUser, loginUser, logoutUser };
+const accountDeleted = () => {
+  return async (dispatch) => {
+    dispatch(removeAccount());
+  };
+};
+
+export { registerUser, loadUser, loginUser, logoutUser, accountDeleted };
