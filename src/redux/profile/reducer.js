@@ -1,6 +1,6 @@
 import actions from "./actions";
 
-const { GET_PROFILE, PROFILE_ERROR } = actions;
+const { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, UPDATE_PROFILE } = actions;
 
 const initialState = {
   profile: null,
@@ -17,7 +17,8 @@ const initialState = {
 const profileReducer = (state = initialState, action) => {
   const { payload, type } = action;
   switch (type) {
-    case GET_PROFILE: {
+    case GET_PROFILE:
+    case UPDATE_PROFILE: {
       return {
         ...state,
         profile: payload,
@@ -28,6 +29,14 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         error: payload,
+        loading: false,
+      };
+    }
+    case CLEAR_PROFILE: {
+      return {
+        ...state,
+        profile: null,
+        repos: [],
         loading: false,
       };
     }

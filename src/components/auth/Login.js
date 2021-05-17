@@ -20,6 +20,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginUser(formData));
   };
+
   if (auth.isAuthenticated) {
     history.push(`/dashboard`);
   }

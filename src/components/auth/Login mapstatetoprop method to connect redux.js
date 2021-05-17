@@ -18,7 +18,7 @@ const Login = ({ loginUser, isAuthenticated }) => {
     loginUser(formData);
   };
   if (isAuthenticated) {
-    return <Redirect to="/" />;
+    history.push(`/dashboard`);
   }
   return (
     <section className="container">

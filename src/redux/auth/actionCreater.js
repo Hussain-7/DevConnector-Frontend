@@ -1,4 +1,5 @@
 import { setAlert } from "../alerts/actionCreater";
+import { clearProfiles } from "../profile/actionCreater";
 import actions from "./actions";
 import authService from "../../services/authService";
 import { setAuthToken } from "../../@axios/index";
@@ -17,7 +18,6 @@ const loadUser = () => {
     if (localStorage.token) setAuthToken(localStorage.token);
     try {
       const res = await authService.loadUser();
-      console.log(res.data);
       dispatch(userLoading(res.data));
     } catch (error) {
       console.log("AUTH ERROR");
@@ -47,7 +47,6 @@ const registerUser = ({ name, email, password }) => {
   return async (dispatch) => {
     try {
       const user = { name, email, password };
-      console.log(user);
       const res = await authService.registerUser(user);
       if (res.data) {
         dispatch(registerSuccess(res.data.token));
@@ -65,6 +64,7 @@ const registerUser = ({ name, email, password }) => {
 
 const logoutUser = () => {
   return async (dispatch) => {
+    dispatch(clearProfiles());
     dispatch(logout());
   };
 };

@@ -1,7 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Landing = () => {
+  const history = useHistory();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  if (isAuthenticated) {
+    history.push("/dashboard");
+  }
   return (
     <section className="landing">
       <div className="dark-overlay">

@@ -15,6 +15,10 @@ import "./App.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import PrivateRoute from "./routing/PrivateRoute";
+import ProfileForm from "./components/profile-forms/ProfileForm";
+import AddProfile from "./components/profile-forms/AddProfile";
+import AddEducation from "./components/profile-forms/AddEducation";
+import AddExperience from "./components/profile-forms/AddExperience";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -36,6 +40,26 @@ const App = () => {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/Register" component={Register} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute
+                  exact
+                  path="/edit-profile"
+                  component={AddProfile}
+                />
+                <PrivateRoute
+                  exact
+                  path="/add-education"
+                  component={AddEducation}
+                />
+                <PrivateRoute
+                  exact
+                  path="/add-experience"
+                  component={AddExperience}
+                />
+                <PrivateRoute
+                  exact
+                  path="/create-profile"
+                  component={ProfileForm}
+                />
               </Switch>
             </section>
           </Fragment>
