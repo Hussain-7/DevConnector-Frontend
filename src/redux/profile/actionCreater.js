@@ -54,7 +54,7 @@ const createProfile = (FormData, history, edit = false) => {
 const addExperience = (FormData, history) => {
   return async (dispatch) => {
     try {
-      const res = await profileService.createProfile(FormData);
+      const res = await profileService.addExperience(FormData);
       dispatch(updateProfile(res.data));
       dispatch(setAlert("Experience Added", "success"));
       history.push("/dashboard");
@@ -76,7 +76,7 @@ const addExperience = (FormData, history) => {
 const addEducation = (FormData, history) => {
   return async (dispatch) => {
     try {
-      const res = await profileService.createProfile(FormData);
+      const res = await profileService.addEduction(FormData);
       dispatch(updateProfile(res.data));
       dispatch(setAlert("Education Added", "success"));
       history.push("/dashboard");
