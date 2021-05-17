@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Moment from "moment";
 import { useDispatch } from "react-redux";
-import { removeEducation } from "../../redux/profile/actionCreater";
+import { removeEducation } from "../../../redux/profile/actionCreater";
 const Education = ({ education }) => {
   const dispatch = useDispatch();
 
@@ -47,4 +47,4 @@ const Education = ({ education }) => {
     </Fragment>
   );
 };
-export default Education;
+export { Education };

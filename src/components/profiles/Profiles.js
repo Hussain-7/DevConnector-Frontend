@@ -1,0 +1,36 @@
+import React, { useEffect, Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Spinner } from "../layout/Spinner";
+import { getAllProfiles } from "../../redux/profile/actionCreater";
+import ProfileItem from "./ProfileItem";
+
+const Profiles = () => {
+  const dispatch = useDispatch();
+  const { profiles, loading } = useSelector((state) => state.profile);
+  useEffect(() => {
+    dispatch(getAllProfiles());
+  }, [dispatch]);
+  return (
+    <Fragment>
+      {loading || profiles.length === 0 ? (
+        <Spinner />
+      ) : (
+        <Fragment>
+          <h1 className="large text-primary">Developers</h1>
+          <p className="lead">
+            <i className="fab fa-connectdevelop"></i> Browse and connect with
+            developers
+          </p>
+          {profiles.length > 0 ? (
+            profiles.map((profile) => (
+              <ProfileItem key={profile._id} profile={profile} />
+            ))
+          ) : (
+            <h4>No Profiles found...</h4>
+          )}
+        </Fragment>
+      )}
+    </Fragment>
+  );
+};
+export default Profiles;

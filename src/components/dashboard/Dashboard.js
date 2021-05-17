@@ -6,9 +6,7 @@ import {
 } from "../../redux/profile/actionCreater";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../layout/Spinner";
-import DashboardLink from "./DashboardLink";
-import Education from "./Education";
-import Experience from "./Experience";
+import { DashboardLink, Education, Experience } from "./components";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -16,7 +14,7 @@ const Dashboard = () => {
   const { profile, loading } = useSelector((state) => state.profile);
   useEffect(() => {
     dispatch(getCurrentProfile());
-  }, []);
+  }, [dispatch]);
   return profile == null || auth.loading || loading ? (
     <Spinner />
   ) : (

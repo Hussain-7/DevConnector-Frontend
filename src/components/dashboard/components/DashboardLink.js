@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-export const DashboardLink = () => {
+const DashboardLink = () => {
   return (
     <div className="dash-buttons">
       <Link to="/edit-profile" className="btn btn-light">
@@ -15,4 +15,4 @@ export const DashboardLink = () => {
     </div>
   );
 };
-export default DashboardLink;
+export { DashboardLink };

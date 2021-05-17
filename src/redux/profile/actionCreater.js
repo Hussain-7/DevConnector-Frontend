@@ -2,13 +2,70 @@ import actions from "./actions";
 import { setAlert } from "../alerts/actionCreater";
 import { accountDeleted } from "../auth/actionCreater";
 import profileService from "../../services/profileService";
-const { getProfile, profileError, clearProfile, updateProfile } = actions;
+const {
+  getProfile,
+  getProfiles,
+  getRepos,
+  profileError,
+  clearProfile,
+  updateProfile,
+} = actions;
 
 const getCurrentProfile = () => {
   return async (dispatch) => {
     try {
       const res = await profileService.getCurrentUser();
       dispatch(getProfile(res.data));
+    } catch (error) {
+      dispatch(
+        profileError({
+          msg: error.response.statusText,
+          status: error.response.status,
+        })
+      );
+    }
+  };
+};
+
+const getProfileById = (userId) => {
+  return async (dispatch) => {
+    try {
+      dispatch(clearProfile());
+      const res = await profileService.getProfileById(userId);
+      dispatch(getProfile(res.data));
+    } catch (error) {
+      dispatch(
+        profileError({
+          msg: error.response.statusText,
+          status: error.response.status,
+        })
+      );
+    }
+  };
+};
+
+const getAllProfiles = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(clearProfile());
+      const res = await profileService.getAllProfiles();
+      dispatch(getProfiles(res.data));
+    } catch (error) {
+      dispatch(
+        profileError({
+          msg: error.response.statusText,
+          status: error.response.status,
+        })
+      );
+    }
+  };
+};
+const getGithubRepos = (username) => {
+  return async (dispatch) => {
+    try {
+      console.log(username);
+      const res = await profileService.getGithubRepos(username);
+      dispatch(getRepos(res.data.Repos));
     } catch (error) {
       dispatch(
         profileError({
@@ -139,7 +196,7 @@ const deleteAccount = () => {
   if (window.confirm("Are you sure? This cannot be undone!"))
     return async (dispatch) => {
       try {
-        const res = await profileService.deleteProfile();
+        await profileService.deleteProfile();
         dispatch(clearProfile());
         dispatch(accountDeleted());
         dispatch(setAlert("Your Account has been permanantly deleted"));
@@ -172,4 +229,7 @@ export {
   removeExperience,
   removeEducation,
   deleteAccount,
+  getProfileById,
+  getAllProfiles,
+  getGithubRepos,
 };

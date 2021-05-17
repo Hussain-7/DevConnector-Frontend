@@ -6,7 +6,7 @@ import {
   createProfile,
   getCurrentProfile,
 } from "../../redux/profile/actionCreater";
-const AddProfile = () => {
+const EditProfile = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { profile, loading } = useSelector((state) => state.profile);
@@ -41,7 +41,6 @@ const AddProfile = () => {
   } = formData;
   useEffect(() => {
     dispatch(getCurrentProfile);
-
     setFormData({
       company: loading || !profile.company ? "" : profile.company,
       website: loading || !profile.website ? "" : profile.website,
@@ -51,7 +50,6 @@ const AddProfile = () => {
       githubusername:
         loading || !profile.githubusername ? "" : profile.githubusername,
       bio: loading || !profile.bio ? "" : profile.bio,
-
       twitter:
         loading || (profile.social && !profile.social.twitter)
           ? ""
@@ -73,7 +71,7 @@ const AddProfile = () => {
           ? ""
           : profile.social.instagram,
     });
-  }, [loading]);
+  }, [loading, dispatch]);
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -190,15 +188,30 @@ const AddProfile = () => {
           <span>Optional</span>
         </div>
         {SocialComponent && (
-          <SocialNetworkForm {...formData} onChange={(e) => onChange(e)} />
+          <SocialNetworkForm
+            formData={{
+              twitter,
+              facebook,
+              linkedin,
+              youtube,
+              instagram,
+            }}
+            onChange={(e) => onChange(e)}
+          />
         )}
 
         <input type="submit" className="btn btn-primary my-1" />
-        <Link className="btn btn-light my-1" to="/dashboard">
+        <button
+          className="btn btn-light my-1"
+          onClick={(e) => {
+            e.preventDefault();
+            history.goBack();
+          }}
+        >
           Go Back
-        </Link>
+        </button>
       </form>
     </Fragment>
   );
 };
-export default AddProfile;
+export default EditProfile;

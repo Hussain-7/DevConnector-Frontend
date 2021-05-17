@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
 
 const SocialNetworkForm = (props) => {
-  const { twitter, facebook, linkedin, youtube, instagram, onChange } = props;
+  const { twitter, facebook, linkedin, youtube, instagram, onChange } =
+    props.formData;
   console.log(props);
   return (
     <Fragment>

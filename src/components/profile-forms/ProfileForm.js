@@ -44,7 +44,7 @@ const ProfileForm = () => {
       youtube: "",
       instagram: "",
     });
-  }, [SocialComponent]);
+  }, [SocialComponent, formData]);
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 

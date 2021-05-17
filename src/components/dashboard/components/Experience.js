@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Moment from "moment";
 import { useDispatch } from "react-redux";
-import { removeExperience } from "../../redux/profile/actionCreater";
+import { removeExperience } from "../../../redux/profile/actionCreater";
 
 const Experience = ({ experience }) => {
   const dispatch = useDispatch();
@@ -47,4 +47,4 @@ const Experience = ({ experience }) => {
     </Fragment>
   );
 };
-export default Experience;
+export { Experience };

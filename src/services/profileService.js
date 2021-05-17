@@ -6,6 +6,18 @@ class ProfileService {
     const url = `/api/profile/me`;
     return await axiosInstance.get(url);
   }
+  async getAllProfiles() {
+    const url = `/api/profile`;
+    return await axiosInstance.get(url);
+  }
+  async getProfileById(id) {
+    const url = `/api/profile/user/${id}`;
+    return await axiosInstance.get(url);
+  }
+  async getGithubRepos(username) {
+    const url = `/api/profile/github/${username}`;
+    return await axiosInstance.get(url);
+  }
   async createProfile(data) {
     const url = `/api/profile`;
     return await axiosInstance.post(url, data);
